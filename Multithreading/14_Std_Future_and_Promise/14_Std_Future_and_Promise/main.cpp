@@ -11,7 +11,7 @@ void countOddSum(std::promise<uint64_t>&& oddSumPromise, uint64_t start, uint64_
     uint64_t oddSum = 0;
 
     for (uint64_t i = start; i <= end; i++)
-        oddSum += i % 2 ? i : 0;
+        oddSum += i % 2 != 0 ? i : 0;
 
     oddSumPromise.set_value(oddSum); // setting the value
 
