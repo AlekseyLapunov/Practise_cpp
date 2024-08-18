@@ -15,12 +15,15 @@ std::string threadIdToString()
     return ss.str();
 }
 
-void inline showSet(std::set<std::string>& memo)
+void inline showSet(const std::set<std::string>& memo)
 {
     std::cout << "showSet() printing set:\n";
-    for (auto& entry : memo)
+
+    size_t i = 1;
+
+    for (const auto& entry : memo)
     {
-        std::cout << "Thread ID#" << entry << "\n";
+        std::cout << i++ << " Thread ID#" << entry << "\n";
     }
 }
 
@@ -43,7 +46,7 @@ int main()
             threadPool.enqueueTask([i, &memoThreadsIds]()
             {
                 std::string threadId = threadIdToString();
-                std::cout << "Task " << (int)i << " is being executed by thread ID#" << threadId << "\n";
+                std::cout << "Task " << (int)(i + 1) << " is being executed by thread ID#" << threadId << "\n";
 
                 memoThreadsIds.insert(threadId);
 
@@ -55,7 +58,7 @@ int main()
 
     std::cout << "memoThreadsIds.size()"
         << (memoThreadsIds.size() == threadsCount ? " == " : " != ")
-        << "threadsCount\n";
+        << "threadsCount " << " == " << threadsCount << "\n";
 
     return 0;
 }
